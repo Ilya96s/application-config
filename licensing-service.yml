@@ -17,14 +17,14 @@ spring:
       hibernate:
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    database:
-      driverClassName: org.postgresql.Driver
-    datasource:
-      testWhileIdle: true
-      validationQuery: SELECT 1
-    jpa:
-      hibernate:
-        ddl-auto: create
+      database:
+        driverClassName: org.postgresql.Driver
+      datasource:
+        testWhileIdle: true
+        validationQuery: SELECT 1
+      jpa:
+        hibernate:
+          ddl-auto: create
 
 server:
   port: 8082
