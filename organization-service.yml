@@ -1,0 +1,47 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: POSTGRESQL
+    datasource:
+      platform: postgres
+    show-sql: true
+    properties:
+      hibernate:
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database:
+      driverClassName: org.postgresql.Driver
+    datasource:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+
+server:
+  port: 8081
+
+#Регистрация службы в Spring Eureka
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+#Настройка шаблона размыкатель цепи
+resilience4j:
+  circuitbreaker:
+    instances:
+      organizationService:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 6
+        ringBufferSizeInHalfOpenState: 4
+        waitDurationInOpenState: 20s
+        failureRateThreshold: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
