@@ -5,9 +5,9 @@ spring:
     database: POSTGRESQL
     datasource:
       platform: postgres
-      url: "jdbc:postgresql://database:5432/ostock_prod"
+      url: "jdbc:postgresql://localhost:5432/ostock_dev?sslmode=disable"
       username: "postgres"
-      password: "{cipher}f4609209a3e75d8ac79a5e3063ce151c2cd28aa431170bb06974b9421e807b6a"
+      password: "{cipher}7540e2c156c63222c4f89ca4cda2bf1aa06be6f26a425264d001ab90896de6dd"
       driverClassName: org.postgresql.Driver
       testWhileIdle: true
       validationQuery: SELECT 1
@@ -16,7 +16,6 @@ spring:
       hibernate:
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
 
 server:
   port: 8081
