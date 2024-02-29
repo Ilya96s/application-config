@@ -17,9 +17,6 @@ spring:
       hibernate:
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         dialect: org.hibernate.dialect.PostgreSQLDialect
-      jpa:
-        hibernate:
-          ddl-auto: create
 
 
 server:
