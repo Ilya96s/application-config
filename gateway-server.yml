@@ -10,3 +10,34 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
+
+# Настройки для поддержки автоматического поиска служб
+# Согласно этим настройкам Spring Cloud Gateway будет автоматически обращаться к службе Eureka и определять местоположение вызываемой службы по ее идентификатору
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#Настройка для поддержки ручного поиска слуюж
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: organization-service
+          uri: lb://organization-service
+          predicates:
+            - Path=/organization/**
+          filters:
+            - RewritePath=/organization/(?<path>.*), /$\{path}
