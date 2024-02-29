@@ -1,0 +1,91 @@
+example:
+  property: "I AM THE DEFAULT"
+
+# DataSource settings: set here your own configurations for the database
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: POSTGRESQL
+    datasource:
+      platform: postgres
+      url: "jdbc:postgresql://database:5432/ostock_prod"
+      username: "postgres"
+      password: "{cipher}f4609209a3e75d8ac79a5e3063ce151c2cd28aa431170bb06974b9421e807b6a"
+    show-sql: true
+    properties:
+      hibernate:
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database:
+      driverClassName: org.postgresql.Driver
+    datasource:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+    jpa:
+      hibernate:
+        ddl-auto: create
+
+server:
+  port: 8082
+
+#Регистрация службы в Spring Eureka
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+#Настройка шаблона размыкатель цепи
+resilience4j:
+  circuitbreaker:
+    instances:
+      licenseService:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 5
+        ringBufferSizeInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+#Настройка шаблона герметичных отсеков
+  bulkhead:
+    instances:
+      bulkheadLicenseService:
+        maxWaitDuration: 10ms
+        maxConcurrentCalls: 20
+  thread-pool-bulkhead:
+    instances:
+      bulkheadLicenseService:
+        maxThreadPoolSize: 1
+        coreThreadPoolSize: 1
+        queueCapacity: 1
+        keepAliveDuration: 20ms
+
+#Настройка шаблона повторных попыток
+  retry:
+    instances:
+      retryLicenseService:
+        maxRetryAttempts: 5
+        waitDuration: 10000
+        retryExceptions:
+          - java.util.concurrent.TimeoutException
+
+#Настройка шаблона ограничитель частоты
+  ratelimiter:
+    instances:
+      licenseService:
+        timeoutDuration: 1000ms
+        limitRefreshPeriod: 5000
+        limitForPeriod: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
