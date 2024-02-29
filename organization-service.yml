@@ -1,3 +1,4 @@
+# DataSource settings: set here your own configurations for the database
 spring:
   jpa:
     hibernate:
@@ -8,14 +9,19 @@ spring:
       url: "jdbc:postgresql://database:5432/ostock_prod"
       username: "postgres"
       password: "{cipher}f4609209a3e75d8ac79a5e3063ce151c2cd28aa431170bb06974b9421e807b6a"
-      driverClassName: org.postgresql.Driver
-      testWhileIdle: true
-      validationQuery: SELECT 1
     show-sql: true
     properties:
       hibernate:
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         dialect: org.hibernate.dialect.PostgreSQLDialect
+      database:
+        driverClassName: org.postgresql.Driver
+      datasource:
+        testWhileIdle: true
+        validationQuery: SELECT 1
+      jpa:
+        hibernate:
+          ddl-auto: create
 
 server:
   port: 8081
