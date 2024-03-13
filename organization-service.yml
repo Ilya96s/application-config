@@ -19,6 +19,12 @@ spring:
       jpa:
         hibernate:
           ddl-auto: create
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/spmia-realm
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 server:
   port: 8081
@@ -49,14 +55,3 @@ management:
     web:
       exposure:
         include: "*"
-
-#Настройка связи с KeyCloak
-keycloak:
-  realm: spmia-realm #Имя пространства в KeyCloak
-  auth-server-url: http://localhost:8080/auth #URL конечной точки Auth сервера KeyCloak
-  ssl-required: external
-  resource: ostock #Идентфииктаор клиента
-  credentials:
-    secret: bkifrrJwmLpnbQEi2g4VRxbJZn4lUXyB #Секретный ключ клиента
-  use-resource-role-mappings: true
-  bearer-only: true
