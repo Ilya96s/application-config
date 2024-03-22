@@ -22,14 +22,14 @@ spring:
       jpa:
         hibernate:
           ddl-auto: create
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: test-topic123
-      properties:
-        spring.json.trusted.packages: *
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer:
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      group-id: test-topic123
+#      properties:
+#        spring.json.trusted.packages: *
   security:
     oauth2:
       resourceserver:
