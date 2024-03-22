@@ -6,30 +6,23 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     database: POSTGRESQL
     datasource:
       platform: postgres
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      driverClassName: org.postgresql.Driver
     show-sql: true
-    properties:
-      hibernate:
-        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-      database:
-        driverClassName: org.postgresql.Driver
-      datasource:
-        testWhileIdle: true
-        validationQuery: SELECT 1
-      jpa:
-        hibernate:
-          ddl-auto: create
-#  kafka:
-#    bootstrap-servers: localhost:9092
-#    consumer:
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#      group-id: test-topic123
-#      properties:
-#        spring.json.trusted.packages: *
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: test-topic123
+      properties:
+        spring.json.trusted.packages: "*"
   security:
     oauth2:
       resourceserver:
