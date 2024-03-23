@@ -1,5 +1,8 @@
-# DataSource settings: set here your own configurations for the database
+server:
+  port: 8081
+
 spring:
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -12,6 +15,7 @@ spring:
       validationQuery: SELECT 1
       driverClassName: org.postgresql.Driver
     show-sql: true
+
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -30,9 +34,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/Spmia-realm
-
-server:
-  port: 8081
 
 #Регистрация службы в Spring Eureka
 eureka:
