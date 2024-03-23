@@ -1,8 +1,8 @@
-example:
-  property: "I AM THE DEFAULT"
+server:
+  port: 8082
 
-# DataSource settings: set here your own configurations for the database
 spring:
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -15,25 +15,24 @@ spring:
       validationQuery: SELECT 1
       driverClassName: org.postgresql.Driver
     show-sql: true
+
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
+      group-id: "order-1"
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: test-group-123
       properties:
         spring:
           json:
             trusted:
               packages: '*'
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/Spmia-realm
-
-server:
-  port: 8082
 
 #Регистрация службы в Spring Eureka
 eureka:
@@ -59,6 +58,7 @@ resilience4j:
           - org.springframework.web.client.HttpServerErrorException
           - java.io.IOException
           - java.util.concurrent.TimeoutException
+          -
 #Настройка шаблона герметичных отсеков
   bulkhead:
     instances:
@@ -105,3 +105,6 @@ keycloak:
     secret: ecSnFJiIQ2HImBQpYLmIXazuPNOT5kxs
   use-resource-role-mappings: true
   bearer-only: true
+
+example:
+  property: "I AM THE DEFAULT"
