@@ -29,14 +29,14 @@ spring:
             trusted:
               packages: '*'
 
-topic:
-  send-order: test-topic
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/Spmia-realm
+
+topic:
+  send-order: test-topic
 
 #Регистрация службы в Spring Eureka
 eureka:
